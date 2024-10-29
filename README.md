@@ -26,6 +26,15 @@ Design and implement a simple library management system to manage books and borr
 - [ ] Scalability: The system design should support the addition of new features in the future, like reservations or reviews.
 - [ ] Security: Ensure that user inputs are validated to prevent SQL injection or other potential security threats.
 
+## TODO (Optional):
+- [ ] The system can show analytical reports of the borrowing process in a specific period and export the borrowing process data in CSV or Xlsx sheet formats e.x.
+- [ ] Exports all overdue borrows of the last month.
+- [ ] Exports all borrowing processes of the last month.
+- [ ] Implement rate limiting for the API to prevent abuse. (Choose only two endpoints to apply the rate-limiting).
+- [ ] Dockerizing the application using docker-compose.
+- [ ] Implement basic authentication for the API.
+- [ ] Add unit tests (Adding unit tests for only one module shall be enough, choose the easiest one).
+
 ## Technical Requirements
 1. **Programming**: NodeJs.
 2. **Documentation**: Use Swagger UI interface to deal with the APIs.
