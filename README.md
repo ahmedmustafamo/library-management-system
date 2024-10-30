@@ -41,3 +41,14 @@ Design and implement a simple library management system to manage books and borr
 3. **Database**: Use a relational database system (e.g., PostgreSQL, MySQL).
 4. **API**: Implement a RESTful API to support all the above operations.
 5. **Error Handling**: The system should gracefully handle errors and provide meaningful feedback.
+
+## Steps to run the application locally:
+1. install `docker`
+2. add `.env` file on your directory and add the following variables into it
+```bash
+JWT_SECRET=mySuperSecretKey
+POSTGRES_USER=your_user
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=your_db
+NODE_ENV=development
+```

@@ -1,0 +1,71 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Library Management API",
+      "version": "1.0.0",
+      "title": "Library API"
+    },
+    "paths": {
+      "/books": {
+        "post": {
+          "summary": "Add a new book",
+          "parameters": [
+            {
+              "name": "book",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Book created"
+            }
+          }
+        }
+      },
+      "/borrowers": {
+        "post": {
+          "summary": "Register a new borrower",
+          "parameters": [
+            {
+              "name": "borrower",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Borrower"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Borrower registered"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Book": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "author": { "type": "string" },
+          "isbn": { "type": "string" },
+          "available_quantity": { "type": "integer" },
+          "shelf_location": { "type": "string" }
+        }
+      },
+      "Borrower": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "registered_date": { "type": "string", "format": "date" }
+        }
+      }
+    }
+  }
+  
