@@ -8,6 +8,13 @@ const createBooksTable = `
         available_quantity INTEGER NOT NULL,
         shelf_location VARCHAR(100),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
+      );
     `;
-module.exports = createBooksTable;
+
+const tableIndexes = `
+      CREATE INDEX IF NOT EXISTS idx_books_title ON books(title);
+      CREATE INDEX IF NOT EXISTS idx_books_author ON books(author);
+      CREATE INDEX IF NOT EXISTS idx_books_isbn ON books(isbn);
+`;
+
+module.exports = createBooksTable + tableIndexes;

@@ -13,6 +13,32 @@ const Book = {
     const result = await pool.query('SELECT * FROM books');
     return result.rows;
   },
+  searchBook: async (title, author, isbn) => {
+    const query = [];
+    const values = [];
+    let queryString = 'SELECT * FROM books WHERE';
+
+    if (title) {
+      query.push(`title ILIKE $${query.length + 1}`);
+      values.push(`%${title}%`);
+    }
+    if (author) {
+      query.push(`author ILIKE $${query.length + 1}`);
+      values.push(`%${author}%`);
+    }
+    if (isbn) {
+      query.push(`isbn = $${query.length + 1}`);
+      values.push(isbn);
+    }
+
+    if (query.length === 0) {
+      return [];
+    }
+
+    queryString += ' ' + query.join(' AND ');
+    const result = await pool.query(queryString, values);
+    return result.rows;
+  },
   getById: async (id) => {
     const result = await pool.query('SELECT * FROM books WHERE id = $1', [id]);
     return result.rows[0];

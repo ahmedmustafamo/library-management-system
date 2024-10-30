@@ -6,6 +6,7 @@ const { bookRoutes, borrowRoutes, authRoutes } = require('./src/routes');
 const swaggerDocument = require('./swagger/swagger.json');
 const createTables = require('./src/utils/createDb')
 
+
 const app = express();
 app.use(express.json());
 
