@@ -51,4 +51,5 @@ POSTGRES_USER=your_user
 POSTGRES_PASSWORD=your_password
 POSTGRES_DB=your_db
 NODE_ENV=development
+DEFAULT_DOMAIN=your_default_domain_here.com
 ```
