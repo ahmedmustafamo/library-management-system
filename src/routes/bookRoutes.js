@@ -4,6 +4,9 @@ const { bookController } = require('../controllers');
 const router = express.Router();
 
 router.post('/', bookController.addBook);
-// Define other routes (GET, PUT, DELETE) for books
+router.get('/', bookController.getAllBooks);
+router.get('/:id', bookController.getBookById);
+router.put('/:id', bookController.updateBook);
+router.delete('/:id', bookController.deleteBook);
 
 module.exports = router;

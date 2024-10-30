@@ -9,7 +9,26 @@ const Book = {
     );
     return result.rows[0];
   },
-  // Add more CRUD operations here
+  getAll: async () => {
+    const result = await pool.query('SELECT * FROM books');
+    return result.rows;
+  },
+  getById: async (id) => {
+    const result = await pool.query('SELECT * FROM books WHERE id = $1', [id]);
+    return result.rows[0];
+  },
+  update: async (id, bookData) => {
+    const { title, author, isbn, available_quantity, shelf_location } = bookData;
+    const result = await pool.query(
+      'UPDATE books SET title = $1, author = $2, isbn = $3, available_quantity = $4, shelf_location = $5 WHERE id = $6 RETURNING *',
+      [title, author, isbn, available_quantity, shelf_location, id]
+    );
+    return result.rows[0];
+  },
+  delete: async (id) => {
+    const result = await pool.query('DELETE FROM books WHERE id = $1 RETURNING *', [id]);
+    return result.rowCount > 0;
+  },
 };
 
 module.exports = Book;
