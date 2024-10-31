@@ -17,7 +17,59 @@ DEFAULT_DOMAIN=your_default_domain_here.com
 - run `docker exec -it lms-app npm test`
 
 ## Swagger UI
+- **Note**: it's not ready to expose requests from it. you can run the app locally and use any REST client "eg. Postman"
 - You can find it under `/api-docs`
+
+## Schema Diagram
+
+Here's a simple diagram to show the created tables and its relations
+
++--------------------+
+|       books        |
++--------------------+
+| id (PK)            |
+| title              |
+| author             |
+| isbn               |
+| available_quantity |
+| shelf_location     |
+| created_at         |
++--------------------+
+
++---------------------+
+|      borrowers      |
++---------------------+
+| id (PK)             |
+| name                |
+| email               |
+| registered_date     |
++---------------------+
+
++-----------------------+
+|    borrowed_books     |
++-----------------------+
+| id (PK)               |
+| borrower_id (FK)      |
+| book_id (FK)          |
+| due_date              |
+| created_at            |
++-----------------------+
+
++-------------------+
+|       users       |
++-------------------+
+| id (PK)           |
+| username          |
+| email             |
+| password          |
+| created_at        |
++-------------------+
+
+Relationships:
+- borrowed_books.borrower_id -> borrowers.id
+- borrowed_books.book_id -> books.id
+
+
 ## Functional Requirements
 
 ### Books:

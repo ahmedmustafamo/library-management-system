@@ -3,7 +3,7 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 
 const { bookRoutes, borrowRoutes, authRoutes } = require('./src/routes');
-const swaggerDocument = require('./swagger/swagger.json');
+const swaggerDocument = require('./swagger/swagger_output.json');
 const createTables = require('./src/utils/createDb')
 const authenticateToken = require('./src/middleware/authMiddleware')
 
@@ -11,9 +11,9 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: [process.env.DEFAULT_DOMAIN],
+  origin: "*",
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  allowedHeaders: "*", // Allowed headers
 };
 app.use(cors(corsOptions));
 
