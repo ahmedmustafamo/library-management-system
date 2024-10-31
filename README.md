@@ -23,7 +23,7 @@ DEFAULT_DOMAIN=your_default_domain_here.com
 ## Schema Diagram
 
 Here's a simple diagram to show the created tables and its relations
-
+```bash
 +--------------------+
 |       books        |
 +--------------------+
@@ -64,7 +64,7 @@ Here's a simple diagram to show the created tables and its relations
 | password          |
 | created_at        |
 +-------------------+
-
+```
 Relationships:
 - borrowed_books.borrower_id -> borrowers.id
 - borrowed_books.book_id -> books.id
