@@ -5,19 +5,19 @@ const swaggerUi = require('swagger-ui-express');
 const { bookRoutes, borrowRoutes, authRoutes } = require('./src/routes');
 const swaggerDocument = require('./swagger/swagger.json');
 const createTables = require('./src/utils/createDb')
-
+const authenticateToken = require('./src/middleware/authMiddleware')
 
 const app = express();
 app.use(express.json());
 
-// const corsOptions = {
-//   origin: process.env.DEFAULT_DOMAIN,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-//   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-// };
-app.use(cors());
+const corsOptions = {
+  origin: [process.env.DEFAULT_DOMAIN],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+};
+app.use(cors(corsOptions));
 
-// create DB tables if not created
+// create DB if not created
 createTables()
 
 // Swagger setup
@@ -29,8 +29,8 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/books', bookRoutes);
-app.use('/borrowers', borrowRoutes);
+app.use('/books', authenticateToken, bookRoutes);
+app.use('/borrowers', authenticateToken, borrowRoutes);
 app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;

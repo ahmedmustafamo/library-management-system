@@ -1,71 +1,620 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "Library Management API",
-      "version": "1.0.0",
-      "title": "Library API"
-    },
-    "paths": {
-      "/books": {
-        "post": {
-          "summary": "Add a new book",
-          "parameters": [
-            {
-              "name": "book",
-              "in": "body",
-              "required": true,
+  "swagger": "2.0",
+  "info": {
+    "description": "Library Management API",
+    "version": "1.0.0",
+    "title": "Library API"
+  },
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Register a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
               "schema": {
-                "$ref": "#/definitions/Book"
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
               }
             }
-          ],
+          },
           "responses": {
             "201": {
-              "description": "Book created"
-            }
-          }
-        }
-      },
-      "/borrowers": {
-        "post": {
-          "summary": "Register a new borrower",
-          "parameters": [
-            {
-              "name": "borrower",
-              "in": "body",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Borrower"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Borrower registered"
+              "description": "User registered successfully"
+            },
+            "400": {
+              "description": "Invalid input"
             }
           }
         }
       }
     },
-    "definitions": {
-      "Book": {
-        "type": "object",
-        "properties": {
-          "title": { "type": "string" },
-          "author": { "type": "string" },
-          "isbn": { "type": "string" },
-          "available_quantity": { "type": "integer" },
-          "shelf_location": { "type": "string" }
+    "/login": {
+      "post": {
+        "summary": "User login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User logged in successfully"
+            },
+            "401": {
+              "description": "Invalid credentials"
+            }
+          }
+        }
+      }
+    },
+    "/books": {
+      "post": {
+        "summary": "Add a new book",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "isbn": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "author",
+                  "isbn"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Book added successfully"
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          }
         }
       },
-      "Borrower": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string" },
-          "email": { "type": "string" },
-          "registered_date": { "type": "string", "format": "date" }
+      "get": {
+        "summary": "Get all books",
+        "responses": {
+          "200": {
+            "description": "A list of books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "isbn": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/search": {
+      "get": {
+        "summary": "Search for books",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "isbn": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "summary": "Get a book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "isbn": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "isbn": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Book updated successfully"
+            },
+            "404": {
+              "description": "Book not found"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Book deleted successfully"
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        }
+      }
+    },
+    "/borrows": {
+      "post": {
+        "summary": "Add a new borrow transaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bookId": {
+                    "type": "string"
+                  },
+                  "borrowerId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "bookId",
+                  "borrowerId"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Borrow transaction created"
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List all borrow transactions",
+        "responses": {
+          "200": {
+            "description": "A list of borrow transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "bookId": {
+                        "type": "string"
+                      },
+                      "borrowerId": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/borrows/{id}": {
+      "put": {
+        "summary": "Update a borrow transaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Borrow transaction updated"
+            },
+            "404": {
+              "description": "Borrow transaction not found"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a borrow transaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Borrow transaction deleted"
+          },
+          "404": {
+            "description": "Borrow transaction not found"
+          }
+        }
+      }
+    },
+    "/borrows/checkout": {
+      "post": {
+        "summary": "Checkout a book",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "borrowerId": {
+                    "type": "string"
+                  },
+                  "bookId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "borrowerId",
+                  "bookId"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Book checked out"
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          }
+        }
+      }
+    },
+    "/borrows/return": {
+      "post": {
+        "summary": "Return a book",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "borrowerId": {
+                    "type": "string"
+                  },
+                  "bookId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "borrowerId",
+                  "bookId"
+                ]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Book returned"
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          }
+        }
+      }
+    },
+    "/borrows/{borrowerId}/borrowed-books": {
+      "get": {
+        "summary": "List borrowed books by borrower ID",
+        "parameters": [
+          {
+            "name": "borrowerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of borrowed books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/borrows/{borrowerId}/overdue-books": {
+      "get": {
+        "summary": "List overdue books by borrower ID",
+        "parameters": [
+          {
+            "name": "borrowerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of overdue books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "author": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "string"
+        },
+        "available_quantity": {
+          "type": "integer"
+        },
+        "shelf_location": {
+          "type": "string"
+        }
+      }
+    },
+    "Borrower": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "registered_date": {
+          "type": "string",
+          "format": "date"
         }
       }
     }
   }
-  
+}

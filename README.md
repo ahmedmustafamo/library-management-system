@@ -12,7 +12,12 @@ POSTGRES_DB=your_db
 NODE_ENV=development
 DEFAULT_DOMAIN=your_default_domain_here.com
 ```
+## Unit Tests
+- run `docker-compose up`
+- run `docker exec -it lms-app npm test`
 
+## Swagger UI
+- You can find it under `/api-docs`
 ## Functional Requirements
 
 ### Books:
@@ -37,7 +42,7 @@ DEFAULT_DOMAIN=your_default_domain_here.com
 - [x] Performance: The system should be optimized for reading operations since searching and listing books/borrowers will be frequent operations.
 - [x] Scalability: The system design should support the addition of new features in the future, like reservations or reviews.
 - [x] Security: Ensure that user inputs are validated to prevent SQL injection or other potential security threats.
-    - Applied it only on /books/search API as a sample by make all parameters required
+    - Applied it only on /books/search API as a sample by make all parameters' validation required
 
 ## TODO (Optional):
 - [ ] The system can show analytical reports of the borrowing process in a specific period and export the borrowing process data in CSV or Xlsx sheet formats e.x.
@@ -45,8 +50,8 @@ DEFAULT_DOMAIN=your_default_domain_here.com
 - [ ] Exports all borrowing processes of the last month.
 - [x] Implement rate limiting for the API to prevent abuse. (Choose only two endpoints to apply the rate-limiting).
 - [x] Dockerizing the application using docker-compose.
-- [-] Implement basic authentication for the API.
-- [ ] Add unit tests (Adding unit tests for only one module shall be enough, choose the easiest one).
+- [x] Implement basic authentication for the API.
+- [x] Add unit tests (Adding unit tests for only one module shall be enough, choose the easiest one).
 
 ## Technical Requirements
 1. **Programming**: NodeJs.

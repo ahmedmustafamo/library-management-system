@@ -1,6 +1,9 @@
-const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
+const { User } = require('../models');
+const handleError = require('./../config/handleError')
+
 
 const authController = {
   register: async (req, res) => {
@@ -8,7 +11,7 @@ const authController = {
       const user = await User.create(req.body);
       res.status(201).json(user);
     } catch (error) {
-      res.status(500).json({ error: 'Error registering user' });
+      handleError(res, error, 'registering user')
     }
   },
 

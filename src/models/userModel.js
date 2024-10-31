@@ -6,7 +6,7 @@ const User = {
     const { username, email, password } = user;
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(
-      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email, created_at',
       [username, email, hashedPassword]
     );
     return result.rows[0];
