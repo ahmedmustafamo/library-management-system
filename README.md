@@ -346,7 +346,23 @@ Relationships:
    * @apiError (Error 401) Unauthorized Token not valid or expired.
    * @apiError (Error 500) InternalServerError Error while fetching overdue books.
    */
-  
+```
+
+Sample API request:
+```bash
+GET http://localhost:3000/books
+Authorization: Bearer {token}
+response: [
+  {
+    "id": 1,
+    "title": "Book 1",
+    "author": "Robert De Niro",
+    "isbn": "32dr-34f4",
+    "available_quantity": 4,
+    "shelf_location": "",
+    "created_at": "2024-10-30T09:12:55.002Z"
+  }
+]
 ```
 ## Functional Requirements
 
